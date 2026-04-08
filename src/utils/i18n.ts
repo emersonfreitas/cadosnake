@@ -1,0 +1,72 @@
+export const translations = {
+  pt: {
+    title: 'CadoSnake', score: 'Pontuação', highscore: 'Recorde', start: 'Iniciar Jogo',
+    paused: 'Pausado', resume: 'Continuar', gameover: 'Fim de Jogo!', playAgain: 'Jogar Novamente',
+    difficulty: 'Dificuldade', easy: 'Fácil', medium: 'Moderado', hard: 'Difícil',
+    settings: 'Configurações', skin: 'Cor da Cobra', scenario: 'Cenário', food: 'Alimento',
+    language: 'Idioma', close: 'Fechar', help: 'Ajuda e Regras',
+    controls: 'Controles no Mobile', swipe: 'Deslizar (Swipe)', dpad: 'Botões na Tela (D-Pad)',
+    tutorialSwipe: 'Deslize o dedo na tela para mover a cobra.',
+    tutorialDpad: 'Use as setas na tela para mover a cobra.',
+    rulesText: 'Coma os alimentos para crescer e ganhar pontos. Não bata nas paredes ou no próprio corpo!',
+    desktop: 'Desktop:', desktopMove: 'W, A, S, D ou Setas para mover.', desktopPause: 'P ou Esc para pausar.', mobile: 'Mobile:', mobileInstruct: 'Deslize na tela ou use os botões virtuais (configure nas opções).',
+    createdBy: 'Criado por',
+    footerMessage: 'Feito com 💜 (e muito café) por',
+    skins: { green: 'Verde', blue: 'Azul', purple: 'Roxo', gold: 'Dourado' },
+    scenarios: { dark: 'Escuro', forest: 'Floresta', desert: 'Deserto', ocean: 'Oceano' },
+    foods: { apple: 'Maçã', mouse: 'Rato', gem: 'Joia', star: 'Estrela' }
+  },
+  en: {
+    title: 'CadoSnake', score: 'Score', highscore: 'High Score', start: 'Start Game',
+    paused: 'Paused', resume: 'Resume', gameover: 'Game Over!', playAgain: 'Play Again',
+    difficulty: 'Difficulty', easy: 'Easy', medium: 'Medium', hard: 'Hard',
+    settings: 'Settings', skin: 'Snake Color', scenario: 'Scenario', food: 'Food Type',
+    language: 'Language', close: 'Close', help: 'Help & Rules',
+    controls: 'Mobile Controls', swipe: 'Swipe', dpad: 'On-Screen Buttons (D-Pad)',
+    tutorialSwipe: 'Swipe your finger on the screen to move the snake.',
+    tutorialDpad: 'Use the on-screen arrows to move the snake.',
+    rulesText: 'Eat food to grow and earn points. Do not hit the walls or your own body!',
+    desktop: 'Desktop:', desktopMove: 'W, A, S, D or Arrows to move.', desktopPause: 'P or Esc to pause.', mobile: 'Mobile:', mobileInstruct: 'Swipe on screen or use virtual buttons (configure in settings).',
+    createdBy: 'Created by',
+    footerMessage: 'Made with 💜 (and lots of coffee) by',
+    skins: { green: 'Green', blue: 'Blue', purple: 'Purple', gold: 'Gold' },
+    scenarios: { dark: 'Dark', forest: 'Forest', desert: 'Desert', ocean: 'Ocean' },
+    foods: { apple: 'Apple', mouse: 'Mouse', gem: 'Gem', star: 'Star' }
+  },
+  es: {
+    title: 'CadoSnake', score: 'Puntuación', highscore: 'Récord', start: 'Iniciar Juego',
+    paused: 'Pausado', resume: 'Continuar', gameover: '¡Fin del Juego!', playAgain: 'Jugar de Nuevo',
+    difficulty: 'Dificultad', easy: 'Fácil', medium: 'Medio', hard: 'Difícil',
+    settings: 'Configuraciones', skin: 'Color de Serpiente', scenario: 'Escenario', food: 'Tipo de Comida',
+    language: 'Idioma', close: 'Cerrar', help: 'Ayuda y Reglas',
+    controls: 'Controles Móviles', swipe: 'Deslizar (Swipe)', dpad: 'Botones en Pantalla (D-Pad)',
+    tutorialSwipe: 'Desliza tu dedo en la pantalla para mover la serpiente.',
+    tutorialDpad: 'Usa las flechas en pantalla para mover la serpiente.',
+    rulesText: 'Come alimentos para crecer y ganar puntos. ¡No choques contra las paredes o tu propio cuerpo!',
+    desktop: 'Escritorio:', desktopMove: 'W, A, S, D o Flechas para mover.', desktopPause: 'P o Esc para pausar.', mobile: 'Móvil:', mobileInstruct: 'Desliza en la pantalla o usa botones virtuales (configura en opciones).',
+    createdBy: 'Creado por',
+    footerMessage: 'Hecho con 💜 (y mucho café) por',
+    skins: { green: 'Verde', blue: 'Azul', purple: 'Morado', gold: 'Dorado' },
+    scenarios: { dark: 'Oscuro', forest: 'Bosque', desert: 'Desierto', ocean: 'Océano' },
+    foods: { apple: 'Manzana', mouse: 'Ratón', gem: 'Gema', star: 'Estrella' }
+  },
+  zh: {
+    title: 'CadoSnake', score: '得分', highscore: '最高分', start: '开始游戏',
+    paused: '已暂停', resume: '继续', gameover: '游戏结束！', playAgain: '再玩一次',
+    difficulty: '难度', easy: '简单', medium: '中等', hard: '困难',
+    settings: '设置', skin: '蛇的颜色', scenario: '场景', food: '食物类型',
+    language: '语言', close: '关闭', help: '帮助和规则',
+    controls: '移动控制', swipe: '滑动 (Swipe)', dpad: '屏幕按钮 (D-Pad)',
+    tutorialSwipe: '在屏幕上滑动手指来移动蛇。',
+    tutorialDpad: '使用屏幕上的箭头来移动蛇。',
+    rulesText: '吃食物长大并赚取积分。不要撞到墙壁或自己的身体！',
+    desktop: '桌面端:', desktopMove: '使用 W, A, S, D 或方向键移动。', desktopPause: '按 P 或 Esc 暂停。', mobile: '移动端:', mobileInstruct: '在屏幕上滑动或使用虚拟按钮（在设置中配置）。',
+    createdBy: '创建者',
+    footerMessage: '用 💜 (和很多咖啡) 制作，作者',
+    skins: { green: '绿色', blue: '蓝色', purple: '紫色', gold: '金色' },
+    scenarios: { dark: '黑暗', forest: '森林', desert: '沙漠', ocean: '海洋' },
+    foods: { apple: '苹果', mouse: '老鼠', gem: '宝石', star: '星星' }
+  }
+};
+
+export type Language = keyof typeof translations;
