@@ -13,17 +13,25 @@ const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)
 
 export const playEatSound = () => {
   if (audioCtx.state === 'suspended') audioCtx.resume();
+  
+  // A satisfying "Pop/Bloop" sound
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
+  
   osc.type = 'sine';
-  osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
-  osc.frequency.exponentialRampToValueAtTime(1046.50, audioCtx.currentTime + 0.1); // C6
-  gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+  // Quick pitch rise for a "pop" effect
+  osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.08);
+  
+  // Quick volume decay
+  gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+  
   osc.connect(gain);
   gain.connect(audioCtx.destination);
+  
   osc.start();
-  osc.stop(audioCtx.currentTime + 0.1);
+  osc.stop(audioCtx.currentTime + 0.08);
 };
 
 export const playGameOverSound = () => {

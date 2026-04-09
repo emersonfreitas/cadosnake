@@ -381,9 +381,16 @@ export default function SnakeGame() {
             height: `${(1 / GRID_SIZE) * 100}%`,
             left: `${(food.x / GRID_SIZE) * 100}%`,
             top: `${(food.y / GRID_SIZE) * 100}%`,
+            zIndex: 20,
           }}
         >
-          <FoodIcon type={foodType} />
+          <motion.div
+            animate={{ scale: [1, 1.15, 1] }}
+            transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+            className="w-full h-full flex items-center justify-center"
+          >
+            <FoodIcon type={foodType} />
+          </motion.div>
         </motion.div>
 
         <AnimatePresence>
