@@ -424,7 +424,7 @@ export default function SnakeGame() {
       <footer className="mt-8 text-center text-sm text-gray-500">
         {t.footerMessage}{' '}
         <a
-          href="https://github.com/emersonfreitasn"
+          href="https://github.com/emersonfreitas"
           target="_blank"
           rel="noopener noreferrer"
           className="text-emerald-500 hover:text-emerald-400 font-medium transition-colors"
@@ -471,7 +471,7 @@ export default function SnakeGame() {
                     <p className="text-gray-400">
                       {t.createdBy}{' '}
                       <a 
-                        href="https://github.com/emersonfreitasn/cadosnake" 
+                        href="https://github.com/emersonfreitas/cadosnake" 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="text-emerald-400 font-bold hover:text-emerald-300 transition-colors"
