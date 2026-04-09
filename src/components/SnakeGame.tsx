@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Play, Pause, RotateCcw, Settings, HelpCircle, ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Hand, Menu, X } from 'lucide-react';
+import { Play, Pause, RotateCcw, Settings, HelpCircle, ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Hand, Menu, X, Keyboard } from 'lucide-react';
 import { useSnakeGame, GRID_SIZE } from '../hooks/useSnakeGame';
 import { useSettings, FoodType } from '../hooks/useSettings';
 import { translations } from '../utils/i18n';
@@ -119,7 +119,7 @@ export default function SnakeGame() {
             className="fixed inset-0 z-[60] bg-gray-950 flex flex-col p-6 md:hidden"
           >
             <div className="flex justify-between items-center mb-8">
-              <h2 className="text-3xl font-bold text-white">Menu</h2>
+              <h2 className="text-3xl font-bold text-white">{t.menu}</h2>
               <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 bg-gray-800 rounded-full">
                 <X size={28} />
               </button>
@@ -144,7 +144,7 @@ export default function SnakeGame() {
       </AnimatePresence>
 
       {/* Top Bar: Hamburger + Title */}
-      <div className="w-full max-w-[600px] flex items-center justify-start md:justify-center mb-4 md:mb-6">
+      <div className="w-full flex items-center justify-start md:justify-center mb-4 md:mb-6" style={{ maxWidth: 'min(100%, 600px, 65vh)' }}>
         <button 
           className="md:hidden p-2 mr-3 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
           onClick={() => setIsMobileMenuOpen(true)}
@@ -157,7 +157,7 @@ export default function SnakeGame() {
       </div>
       
       {/* Stats Bar */}
-      <div className="flex justify-between items-center w-full max-w-[600px] mb-4 gap-2">
+      <div className="flex justify-between items-center w-full mb-4 gap-2" style={{ maxWidth: 'min(100%, 600px, 65vh)' }}>
         <div className="text-base md:text-2xl font-mono bg-gray-900 px-2 md:px-4 py-2 rounded-lg border border-gray-800 flex-1 text-center whitespace-nowrap">
           {t.score}: <span className="text-green-400">{score}</span>
         </div>
@@ -195,7 +195,8 @@ export default function SnakeGame() {
       </div>
 
       <div
-        className={`game-container relative border-4 rounded-lg shadow-2xl overflow-hidden scenario-${scenario} skin-${skin} w-full max-w-[600px] aspect-square`}
+        className={`game-container relative border-4 rounded-lg shadow-2xl overflow-hidden scenario-${scenario} skin-${skin} w-full aspect-square ${controlType === 'swipe' ? 'touch-none' : ''}`}
+        style={{ maxWidth: 'min(100%, 600px, 65vh)' }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
@@ -225,11 +226,25 @@ export default function SnakeGame() {
                     ))}
                   </div>
                   
-                  <div className="md:hidden flex items-center gap-2 text-gray-300 bg-gray-800/50 p-3 rounded-lg border border-gray-700 w-full justify-center">
-                    {controlType === 'swipe' ? <Hand size={20} className="text-emerald-400" /> : <ArrowUp size={20} className="text-emerald-400" />}
-                    <span className="text-sm font-medium">
-                      {controlType === 'swipe' ? t.tutorialSwipe : t.tutorialDpad}
-                    </span>
+                  <div className="flex flex-col gap-2 w-full">
+                    {/* Mobile Instructions */}
+                    <div className="md:hidden flex items-center gap-2 text-gray-300 bg-gray-800/50 p-3 rounded-lg border border-gray-700 w-full justify-center">
+                      {controlType === 'swipe' ? <Hand size={20} className="text-emerald-400" /> : <ArrowUp size={20} className="text-emerald-400" />}
+                      <span className="text-sm font-medium">
+                        {controlType === 'swipe' ? t.tutorialSwipe : t.tutorialDpad}
+                      </span>
+                    </div>
+                    {/* Desktop Instructions */}
+                    <div className="hidden md:flex flex-col items-center gap-2 text-gray-300 bg-gray-800/50 p-3 rounded-lg border border-gray-700 w-full justify-center">
+                      <div className="flex items-center gap-2">
+                        <Keyboard size={20} className="text-emerald-400" />
+                        <span className="text-sm font-medium">{t.desktopMove}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Pause size={20} className="text-emerald-400" />
+                        <span className="text-sm font-medium">{t.desktopPause}</span>
+                      </div>
+                    </div>
                   </div>
 
                   <button 
@@ -273,46 +288,23 @@ export default function SnakeGame() {
           )}
         </AnimatePresence>
 
-        {trail.map((segment, i) => (
-          <div
-            key={`trail-${segment.x}-${segment.y}-${i}`}
-            className="absolute flex items-center justify-center pointer-events-none"
-            style={{
-              width: `${(1 / GRID_SIZE) * 100}%`,
-              height: `${(1 / GRID_SIZE) * 100}%`,
-              left: `${(segment.x / GRID_SIZE) * 100}%`,
-              top: `${(segment.y / GRID_SIZE) * 100}%`,
-              zIndex: 4,
-              opacity: 0.4 - (i * 0.1),
-              transform: `scale(${0.9 - (i * 0.15)})`
-            }}
-          >
-            <div
-              className="snake-segment"
-              style={{
-                width: '85%',
-                height: '85%',
-                borderRadius: '8px',
-              }}
-            />
-          </div>
-        ))}
-
         {snake.map((segment, i) => {
           const isHead = i === 0;
           const isTail = i === snake.length - 1 && snake.length > 1;
           
           let rotation = 0;
+          let dx = 0;
+          let dy = 0;
           if (isHead) {
-            let dx = snake.length > 1 ? snake[0].x - snake[1].x : directionRef.current.x;
-            let dy = snake.length > 1 ? snake[0].y - snake[1].y : directionRef.current.y;
+            dx = snake.length > 1 ? snake[0].x - snake[1].x : directionRef.current.x;
+            dy = snake.length > 1 ? snake[0].y - snake[1].y : directionRef.current.y;
             if (dx === 1) rotation = 0;
             else if (dx === -1) rotation = 180;
             else if (dy === 1) rotation = 90;
             else if (dy === -1) rotation = -90;
           } else if (isTail) {
-            let dx = snake[i-1].x - segment.x;
-            let dy = snake[i-1].y - segment.y;
+            dx = snake[i-1].x - segment.x;
+            dy = snake[i-1].y - segment.y;
             if (dx === 1) rotation = 0;
             else if (dx === -1) rotation = 180;
             else if (dy === 1) rotation = 90;
@@ -333,19 +325,27 @@ export default function SnakeGame() {
               }}
             >
               {isHead ? (
-                <svg viewBox="0 0 100 100" style={{ width: '120%', height: '120%', transform: `rotate(${rotation}deg)` }}>
-                  <defs>
-                    <radialGradient id="headGrad" cx="50%" cy="50%" r="50%">
-                      <stop offset="0%" stopColor="var(--snake-color-1)" />
-                      <stop offset="100%" stopColor="var(--snake-color-2)" />
-                    </radialGradient>
-                  </defs>
-                  <path d="M 0 15 C 30 5, 60 5, 80 25 C 100 40, 100 60, 80 75 C 60 95, 30 95, 0 85 Z" fill="url(#headGrad)" />
-                  <circle cx="65" cy="25" r="6" fill="black" />
-                  <circle cx="65" cy="75" r="6" fill="black" />
-                  <circle cx="67" cy="23" r="2" fill="white" />
-                  <circle cx="67" cy="73" r="2" fill="white" />
-                </svg>
+                <motion.div 
+                  key="snake-head"
+                  initial={{ scale: 0.8, x: dx * -5, y: dy * -5, rotate: rotation }}
+                  animate={{ scale: 1, x: 0, y: 0, rotate: rotation }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 12 }}
+                  style={{ width: '120%', height: '120%' }}
+                >
+                  <svg viewBox="0 0 100 100" style={{ width: '100%', height: '100%' }}>
+                    <defs>
+                      <radialGradient id="headGrad" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stopColor="var(--snake-color-1)" />
+                        <stop offset="100%" stopColor="var(--snake-color-2)" />
+                      </radialGradient>
+                    </defs>
+                    <path d="M 0 15 C 30 5, 60 5, 80 25 C 100 40, 100 60, 80 75 C 60 95, 30 95, 0 85 Z" fill="url(#headGrad)" />
+                    <circle cx="65" cy="25" r="6" fill="black" />
+                    <circle cx="65" cy="75" r="6" fill="black" />
+                    <circle cx="67" cy="23" r="2" fill="white" />
+                    <circle cx="67" cy="73" r="2" fill="white" />
+                  </svg>
+                </motion.div>
               ) : isTail ? (
                 <svg viewBox="0 0 100 100" style={{ width: '100%', height: '100%', transform: `rotate(${rotation}deg)` }}>
                   <defs>
